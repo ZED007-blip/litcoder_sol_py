@@ -1,15 +1,21 @@
-import http.client
-
-conn = http.client.HTTPSConnection("judge0-ce.p.rapidapi.com")
-
-headers = {
-    'X-RapidAPI-Key': "57857c65f7mshb52a4a5853d83c3p1287e6jsn61534b268711",
-    'X-RapidAPI-Host': "judge0-ce.p.rapidapi.com"
-}
-
-conn.request("GET", "/about", headers=headers)
-
-res = conn.getresponse()
-data = res.read()
-
-print(data.decode("utf-8"))
+def clumsy(self, n: int) -> int:
+        
+        if n == 1:
+            return 1
+        
+        stack = [n]
+        ops = 0 
+        
+        for i in range(n-1, 0, -1):
+            if ops % 4 == 0:
+                stack[-1] *= i
+            elif ops % 4 == 1:
+                stack[-1] = int(stack[-1] / i)
+            elif ops % 4 == 2:
+                stack.append(i)
+            elif ops % 4 == 3:
+                stack.append(-i)
+            
+            ops += 1
+        
+        return sum(stack)
